@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UF2_NF2_P14</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: beige;
+        }
+
+        header {
+            font-size: 45px;
+            margin-bottom: 20px;
+            color: darkseagreen;
+        }
+
+        video, audio {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        video::cue {
+            color: darkseagreen;          
+            background-color: black; 
+            font-family: Arial, sans-serif;  
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .galeria img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        button{
+            padding: 10%;
+            background-color: darkseagreen;
+            border-radius: 10px;
+            color: aliceblue;
+            border-color: white;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 10px;
+            background-color: darkseagreen;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p>Creació d'una pàgina multimèdia interactiva</p>
+    </header>
+    <main>
+        <!-- Afegir un vídeo amb controls personalitzats:
+        Subtítols en un fitxer .vtt. -->
+        <video controls width="600">
+            <source src="video.mp4" type="video/mp4">
+            <track src="subtitles.vtt" kind="subtitles" srclang="ca" label="Català" default>
+            El teu navegador no admet vídeo HTML5.
+        </video>
+        <!-- Afegir un reproductor d’àudio amb diverses pistes: -->
+        <audio id="player" controls>
+            <source src="palmera.mp3" type="audio/mpeg">
+            <source src="velero.mp3" type="audio/mpeg">
+            El teu navegador no admet àudio HTML5.
+        </audio>
+        <!-- Crear una galeria d’imatges amb almenys 5 imatges amb alt: -->
+        <section class="galeria">
+                <img src="1.png" alt="gatito ok">
+                <img src="4.jpeg" alt="gatito confuso">
+                <img src="5.jpg" alt="gatito xulito">
+                <img src="3.jpg" alt="gatito sorprendido">
+                <img src="2.jpeg" alt="gatito odia frío">
+                <div>
+                    <!-- Botons per augmentar o reduir la mida de les imatges. -->
+                    <button id="zoom-in">Aumentar mida</button>
+                    <button id="zoom-out">Reduir mida</button>
+                </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Pàgina multimèdia</p>
+    </footer>
+    <script>
+        // Controls per la galeria d’imatges: Botons per augmentar o reduir la mida de les imatges.
+        const images = document.querySelectorAll('.galeria img');
+        document.getElementById('zoom-in').addEventListener('click', () => {
+        images.forEach(img => img.style.transform = 'scale(1.2)');
+        });
+        document.getElementById('zoom-out').addEventListener('click', () => {
+        images.forEach(img => img.style.transform = 'scale(1)');
+        });
+        // Canvi automàtic entre pistes d'àudio: Permetre que després d'una pista l’àudio salti automàticament a la següent.
+        document.addEventListener("DOMContentLoaded", function () {
+        const audioPlayer = document.getElementById("player");
+        const sources = audioPlayer.getElementsByTagName("source");
+        let currentTrack = 0;
+
+        // Quan l'audio s'acaba
+        audioPlayer.addEventListener("ended", function () {
+            if (currentTrack < sources.length - 1) {
+                currentTrack++;
+                audioPlayer.src = sources[currentTrack].src; 
+                audioPlayer.load(); 
+                audioPlayer.play(); 
+            }
+        });
+    });
+
+
+    </script>
+    
+</body>
+</html>
